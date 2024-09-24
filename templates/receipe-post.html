@@ -1,0 +1,229 @@
+{% extends "base.html" %}
+{% load static%}
+{% load custom_filters %}
+{% block content%}
+
+    <!-- ##### Breadcumb Area Start ##### -->
+    <div class="breadcumb-area bg-img bg-overlay" style="background-image: url({{detail.image.url}});">
+        <div class="container h-100">
+            <div class="row h-100 align-items-center">
+                <div class="col-12">
+                    <div class="breadcumb-text text-center">
+                        <h2>Recipe</h2>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Breadcumb Area End ##### -->
+
+    <div class="receipe-post-area section-padding-80">
+
+      
+
+        <!-- Receipe Slider -->
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="receipe-slider owl-carousel">
+                        <img src="{{detail.image.url}}" alt="">
+                        <img src="{{detail.image.url}}" alt="">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Receipe Content Area -->
+        <div class="receipe-content-area">
+            <div class="container">
+
+                <div class="row">
+                    <div class="col-12 col-md-8">
+                        <div class="receipe-headline my-5">
+                            <span></span>
+                            <h2>{{detail.name}}</h2>
+                            <div class="receipe-duration">
+                                <h6>Prep: {{detail.prep}}</h6>
+                                <h6>Cook: {{detail.cook}}</h6>
+                                <h6>Yields: {{detail.yields}}</h6>
+                                
+                                <h6>Calories:{{detail.calories}} |  Fat:{{detail.fat}} |  Carbs:{{detail.carbs}} |   Protein:{{detail.protein}}</h6>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="col-12 col-md-4">
+                        <div class="receipe-ratings text-right my-5">
+                            <div class="ratings">
+                                {% for star in 5|times %}
+                                    {% if star < detail.rating %}
+                                        <i class="fa fa-star" aria-hidden="true"></i>
+                                    {% else %}
+                                        <i class="fa fa-star-o" aria-hidden="true"></i>
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div>
+
+                <div class="row">
+                    <div class="col-12 col-lg-8">
+                        <!-- Single Preparation Step -->
+                            <p>{{detail.make | safe}}</p>
+                    </div>
+
+                    <!-- Ingredients -->
+                    <div class="col-12 col-lg-4">
+                        <div class="ingredients">
+                            <h4>Ingredients</h4>
+                            {% for ingredient in detail.ingredients.all%}
+                            <!-- Custom Checkbox -->
+                            <div class="custom-control custom-checkbox">
+                                <input type="checkbox" class="custom-control-input" id="customCheck{{ forloop.counter }}">
+                                <label class="custom-control-label" for="customCheck{{ forloop.counter }}">{{ingredient.ingredients}}</label>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+
+                <div class="listing-reviews-area mt-100" id="review">
+                    <h4>Reviews</h4>
+                    {% for review in reviews %}
+                    <div class="single-review-area">
+                        <div class="reviewer-meta d-flex align-items-center">
+                            <img src="{% static 'img/clients-img/client.webp' %}" alt="" style="height: 100px; width: 100px;">
+                            <div class="reviewer-content">
+                                <div class="review-title-ratings d-flex justify-content-between">
+                                    <div class="ratings">
+                                       <button class="btn btn-{% if review.rating > 7 %}success{% elif review.rating > 5 %}primary{% else %}warning{% endif %}"> {{ review.rating }}/10 </button>
+                                    </div>
+                                </div>
+                                <p>{{ review.comment }}</p>
+                            </div>
+                        </div>
+                        <div class="reviewer-name">
+                            <h6>{{ review.name }}</h6>
+                            <p>{{ review.created_at }}</p>
+                        </div>
+                    </div>
+                    {% endfor %}
+                </div>
+
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="section-heading text-left">
+                            <h3>Leave a comment</h3>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="col-12">
+                        <div class="contact-form-area">
+                            <form action="#" method="POST">
+                                {% csrf_token %}
+                                <div class="row">
+                                    <div class="col-12 col-lg-6">
+                                        <input type="text" class="form-control" name="name" placeholder="Name">
+                                    </div>
+                                    <div class="col-12 col-lg-6">
+                                        <input type="email" class="form-control" name="email" placeholder="E-mail">
+                                    </div>
+                                    <div class="col-12">
+                                        <input type="text" class="form-control" name="subject" placeholder="Subject">
+                                    </div>
+                                    <div class="col-12">
+                                        <textarea name="message" class="form-control" name="message" cols="30" rows="10" placeholder="Message"></textarea>
+                                    </div>
+                                    <div class="col-12">
+                                        <button class="btn delicious-btn mt-30" type="submit">Post Comments</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- ##### Follow Us Instagram Area Start ##### -->
+    <div class="follow-us-instagram">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h5>Follow Us Instragram</h5>
+                </div>
+            </div>
+        </div>
+        <!-- Instagram Feeds -->
+        <div class="insta-feeds d-flex flex-wrap">
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta1.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta2.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta3.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta4.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta5.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta6.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta7.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Follow Us Instagram Area End ##### -->
+{%endblock content%}

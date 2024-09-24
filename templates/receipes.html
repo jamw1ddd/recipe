@@ -1,0 +1,201 @@
+{% extends "base.html" %}
+{% load static %}
+{% load custom_filters %}
+{% block receipes %}active{% endblock receipes %}
+{% block content %}
+<div class="section-heading">
+<h2>Search Results</h2>
+{% if results %}
+    <ul>
+    {% for receipe in results %}
+        <li>
+            <img src="{{ receipe.image.url }}" alt="">
+            <a href="{% url 'receipe' receipe.id %}">{{ receipe.name }}</a>
+        </li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No results found.</p>
+{% endif %}
+</div>
+<!-- recipe.html -->
+<div class="recipe-post-search mb-80">
+    <div class="container">
+        <form action="{% url 'filter' %}" method="get">
+            <div class="row">
+                <div class="col-12 col-lg-3">
+                    <label for="id_category">Category:</label>
+                    {{ form.category }}
+                </div>
+                <div class="col-12 col-lg-3">
+                    <label for="id_country">Country:</label>
+                    {{ form.country }}
+                </div>
+                <div class="col-12 col-lg-3">
+                    <label for="id_tags">Tags:</label>
+                    {{ form.tags }}
+                </div>
+                <div class="col-12 col-lg-3 text-right">
+                    <button type="submit" class="btn delicious-btn">Search</button>
+                </div>
+            </div>
+        </form>
+        <div class="recipe-list">
+            {% for recipe in recipes %}
+                <div class="recipe-item">
+                    <h2>{{ recipe.name }}</h2>
+                    {% if recipe.image %}
+                        <img src="{{ recipe.image.url }}" alt="{{ recipe.name }}" class="recipe-image"/>
+                    {% else %}
+                        <p>No image available</p>
+                    {% endif %}
+                    <p>Category: {{ recipe.category }}</p>
+                    <p>Country: {{ recipe.country }}</p>
+                    <!-- other recipe details -->
+                </div>
+            {% endfor %}
+        </div>
+        <!-- Add pagination if necessary -->
+        {% if is_paginated %}
+            <div class="pagination">
+                <span class="step-links">
+                    {% if page_obj.has_previous %}
+                        <a href="?page=1">&laquo; first</a>
+                        <a href="?page={{ page_obj.previous_page_number }}">previous</a>
+                    {% endif %}
+
+                    <span class="current">
+                        Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+                    </span>
+
+                    {% if page_obj.has_next %}
+                        <a href="?page={{ page_obj.next_page_number }}">next</a>
+                        <a href="?page={{ page_obj.paginator.num_pages }}">last &raquo;</a>
+                    {% endif %}
+                </span>
+            </div>
+        {% endif %}
+    </div>
+</div>
+
+
+
+    <!-- ##### Best Receipe Area Start ##### -->
+    <section class="best-receipe-area">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <div class="section-heading">
+                        <h3>The best Receipies</h3>
+                    </div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!-- Single Best Receipe Area -->
+                {% for receipe in receipes%}
+                <div class="col-12 col-sm-6 col-lg-4">
+                    <div class="single-best-receipe-area mb-30">
+                        <a href = "{% url  'receipe' receipe.id %}">
+                        <img src="{{receipe.image.url}}" alt="">
+                        </a>
+                        <div class="receipe-content">
+                            <a href="receipe-post.html">
+                                <h5>{{receipe.name}}</h5>
+                            </a>
+                                <div class="ratings">
+                                    {% for star in 5|times %}
+                                        {% if star < receipe.rating %}
+                                            <i class="fa fa-star" aria-hidden="true"></i>
+                                        {% else %}
+                                            <i class="fa fa-star-o" aria-hidden="true"></i>
+                                        {% endif %}
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {%endfor%}
+            </div>
+        </div>
+    </section>
+    <!-- ##### Best Receipe Area End ##### -->
+
+    <!-- ##### Follow Us Instagram Area Start ##### -->
+    <div class="follow-us-instagram">
+        <div class="container">
+            <div class="row">
+                <div class="col-12">
+                    <h5>Follow Us Instragram</h5>
+                </div>
+            </div>
+        </div>
+        <!-- Instagram Feeds -->
+        <div class="insta-feeds d-flex flex-wrap">
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta1.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta2.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta3.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta4.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta5.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta6.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+
+            <!-- Single Insta Feeds -->
+            <div class="single-insta-feeds">
+                <img src="{% static 'img/bg-img/insta7.jpg'%}" alt="">
+                <!-- Icon -->
+                <div class="insta-icon">
+                    <a href="#"><i class="fa fa-instagram" aria-hidden="true"></i></a>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- ##### Follow Us Instagram Area End ##### -->
+
+ {%endblock content%}
