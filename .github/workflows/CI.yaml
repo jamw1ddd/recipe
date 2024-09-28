@@ -3,11 +3,11 @@ name: Recipe
 on:
   push:
     banches:
-      -main
+      - main
   
   pull_request:
     branches:
-    -main
+    - main
 
 jobs:
   build:
