@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from main.models import Country,Recipe,Review,Ingredient,Tag,Category
+from main.models import Country, Recipe, Review, Ingredient, Tag, Category
 
 admin.site.register(Country)
 admin.site.register(Recipe)

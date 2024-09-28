@@ -1,25 +1,29 @@
-from django.shortcuts import render,redirect
+from django.shortcuts import render, redirect
 from main.filters import RecipeFilter
-from typing import Any
 from django_filters.views import FilterView
 
-from main.models import Recipe,Ingredient,Review
+from main.models import Recipe, Review
+
 
 def home_view(request):
-    receipes=Recipe.objects.all()[:9]
-    return render(request,'index.html',{'receipes':receipes})
+    receipes = Recipe.objects.all()[:9]
+    return render(request, 'index.html', {'receipes': receipes})
+
 
 def about_view(request):
-    return render(request,'about.html')
+    return render(request, 'about.html')
+
 
 def receipes_view(request):
-    receipes=Recipe.objects.all()
-    return render(request,'receipes.html',{'receipes':receipes})
+    receipes = Recipe.objects.all()
+    return render(request, 'receipes.html', {'receipes': receipes})
 
-def recipe_detail(request,pk):
-    detail=Recipe.objects.get(id=pk)
-    reviews=Review.objects.all()
-    return render(request,'receipe-post.html',{'detail':detail,'reviews':reviews})
+
+def recipe_detail(request, pk):
+    detail = Recipe.objects.get(id=pk)
+    reviews = Review.objects.all()
+    return render(request, 'receipe-post.html', {'detail': detail, 'reviews': reviews})
+
 
 def create_comment(request, pk):
     recipe = Recipe.objects.filter(id=pk).first()
@@ -31,6 +35,7 @@ def create_comment(request, pk):
     create.save()
     return redirect('receipe', pk)
 
+
 def search_view(request):
     query = request.GET.get('q')
     if query:
@@ -38,6 +43,7 @@ def search_view(request):
     else:
         results = Recipe.objects.none()
     return render(request, 'receipes.html', {'results': results})
+
 
 class RecipeView(FilterView):
     model = Recipe
@@ -56,43 +62,46 @@ class RecipeView(FilterView):
         return context
 
 
-
-
-
-
-
 def breakfast_view(request):
-    breakfast=Recipe.objects.all()
-    return render(request,'category/breakfast.html',{'breakfast':breakfast})
+    breakfast = Recipe.objects.all()
+    return render(request, 'category/breakfast.html', {'breakfast': breakfast})
+
 
 def lunch_view(request):
-    lunch=Recipe.objects.all()
-    return render(request,'category/lunch.html',{'lunch':lunch})
+    lunch = Recipe.objects.all()
+    return render(request, 'category/lunch.html', {'lunch': lunch})
+
 
 def dinner_view(request):
-    dinner=Recipe.objects.all()
-    return render(request,'category/dinner.html',{'dinner':dinner})
+    dinner = Recipe.objects.all()
+    return render(request, 'category/dinner.html', {'dinner': dinner})
+
 
 def drinks_view(request):
-    drinks=Recipe.objects.all()
-    return render(request,'category/drinks.html',{'drinks':drinks})
-    
+    drinks = Recipe.objects.all()
+    return render(request, 'category/drinks.html', {'drinks': drinks})
+
+
 def national_view(request):
-    national=Recipe.objects.all()
-    return render(request,'category/national.html',{'national':national})
-    
+    national = Recipe.objects.all()
+    return render(request, 'category/national.html', {'national': national})
+
+
 def soups_view(request):
-    soups=Recipe.objects.all()
-    return render(request,'category/soups.html',{'soups':soups})
-    
+    soups = Recipe.objects.all()
+    return render(request, 'category/soups.html', {'soups': soups})
+
+
 def salads_view(request):
-    salads=Recipe.objects.all()
-    return render(request,'category/salads.html',{'salads':salads})
-    
+    salads = Recipe.objects.all()
+    return render(request, 'category/salads.html', {'salads': salads})
+
+
 def vegetarian_view(request):
-    vegetarian=Recipe.objects.all()
-    return render(request,'category/vegetarian.html',{'vegetarian':vegetarian})
-    
+    vegetarian = Recipe.objects.all()
+    return render(request, 'category/vegetarian.html', {'vegetarian': vegetarian})
+
+
 def desserts_view(request):
-    desserts=Recipe.objects.all()
-    return render(request,'category/desserts.html',{'desserts':desserts})
+    desserts = Recipe.objects.all()
+    return render(request, 'category/desserts.html', {'desserts': desserts})
