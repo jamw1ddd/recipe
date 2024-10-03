@@ -159,11 +159,6 @@ CKEDITOR_CONFIGS = {
 CELERY_BEAT_SCHEDULE = {
     "send_email": {
         "task": "main.tasks.send_email",
-       "schedule": crontab(minute="*/1"),
+        "schedule": crontab(minute="*/1"),
     }
 }
-#    "create_cars":{
-#        "task": "main.tasks.create_cars",
-#        "schedule":crontab(minute="*/1"),
-#    }
-#}

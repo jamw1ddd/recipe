@@ -1,7 +1,7 @@
 from django.urls import path
 from .views import home_view, about_view, recipe_detail, receipes_view, breakfast_view, lunch_view, \
-                   dinner_view, drinks_view, desserts_view, search_view, send_email_view, vegetarian_view, national_view, \
-                   salads_view, soups_view, create_comment, RecipeView
+                   dinner_view, drinks_view, desserts_view, search_view, send_email_view, vegetarian_view, \
+                   national_view, salads_view, soups_view, create_comment, RecipeView
 
 
 urlpatterns = [
