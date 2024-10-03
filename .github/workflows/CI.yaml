@@ -26,6 +26,7 @@ jobs:
         run: |
           pip install flake8
           flake8
+          
       - name: Send Email
         run: |
           python manage.py send_email
