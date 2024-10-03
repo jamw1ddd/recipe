@@ -13,6 +13,8 @@ https://docs.djangoproject.com/en/5.0/ref/settings/
 import os
 from pathlib import Path
 
+from celery.schedules import crontab
+
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
 
@@ -36,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'rest_framework',
     'ckeditor',
     'ckeditor_uploader',
     'main',
@@ -126,6 +129,17 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
+EMAIL_USE_SSL = False
+EMAIL_HOST_USER = 'jamw1ddd2002'
+EMAIL_HOST_PASSWORD = 'axwqszccybrgyejj'
+
+CELERY_BROKER_URL = 'redis://localhost:6379'
+CELERY_RESULT_BACKEND = 'redis://localhost:6379'
+
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 
@@ -141,3 +155,15 @@ CKEDITOR_CONFIGS = {
         'width': 800,
     },
 }
+
+CELERY_BEAT_SCHEDULE = {
+    "send_email": {
+        "task": "main.tasks.send_email",
+       "schedule": crontab(minute="*/1"),
+    }
+}
+#    "create_cars":{
+#        "task": "main.tasks.create_cars",
+#        "schedule":crontab(minute="*/1"),
+#    }
+#}

@@ -1,6 +1,6 @@
 from django.urls import path
 from .views import home_view, about_view, recipe_detail, receipes_view, breakfast_view, lunch_view, \
-                   dinner_view, drinks_view, desserts_view, search_view, vegetarian_view, national_view, \
+                   dinner_view, drinks_view, desserts_view, search_view, send_email_view, vegetarian_view, national_view, \
                    salads_view, soups_view, create_comment, RecipeView
 
 
@@ -21,4 +21,5 @@ urlpatterns = [
     path('national/', national_view, name='national'),
     path('soups/', soups_view, name='soups'),
     path('salads/', salads_view, name='salads'),
+    path('send-mail/', send_email_view, name='email')
 ]

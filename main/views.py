@@ -1,7 +1,10 @@
 from django.shortcuts import render, redirect
 from main.filters import RecipeFilter
 from django_filters.views import FilterView
+from rest_framework.decorators import api_view
+from rest_framework.response import Response
 
+from .tasks import send_email
 from main.models import Recipe, Review
 
 
@@ -105,3 +108,10 @@ def vegetarian_view(request):
 def desserts_view(request):
     desserts = Recipe.objects.all()
     return render(request, 'category/desserts.html', {'desserts': desserts})
+
+
+@api_view(['GET'])
+def send_email_view(request):
+    send_email.delay()
+
+    return Response({'status': 'ok'})
