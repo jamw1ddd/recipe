@@ -28,7 +28,7 @@ jobs:
           flake8
 
       - name: Send Email
-         env:
+        env:
           SECRET_KEY: ${{secrets.SECRET_KEY}}
           DEBUG: ${{secrets.DEBUG}}
         run: |
