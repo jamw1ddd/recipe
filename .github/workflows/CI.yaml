@@ -28,7 +28,7 @@ jobs:
           flake8
       - name: Send Email
         run: |
-          python manage.py send_email
+          python manage.py tasks.send_email
 
       - name: Run tests with coverage
         env:
