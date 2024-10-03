@@ -8,7 +8,6 @@ class Command(BaseCommand):
     help = 'Send Email'
 
     def handle(self,*args, **options):
-        send_mail('Test mail', 'this is a test email',
+        send_mail('Test mail', 'this is a test email111ewrwerwerwerwerwerwe',
               'jamw1ddd2002@gmail.com', ['jamw1ddd2002@gmail.com'], fail_silently=False)
-        #send_mail.delay()
-        return 1
+        self.stdout.write(self.style.SUCCESS('Email sent successfully!'))
